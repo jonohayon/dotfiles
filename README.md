@@ -4,20 +4,20 @@ It's time for me to create some dotfiles, isn't it?
 
 *Disclaimer - these dotfiles are supported only in macOS at the moment. Sorry linux people*
 
-##What it includes:
+## What it includes:
  - Sublime Text 3 configuration
  - ZSH prompt
  - Global `npm` modules + `brew` packages
  - Apps and fonts from `brew cask`
  - And more!
 
-##What it doesn't include:
+## What it doesn't include:
  - Coffee making programs
  - All of the manual stuff
  - ZSH installation
  - And more!
 
-##Installation
+## Installation
 ```bash
 # First, make sure to have xcode command line tools installed
 xcode-select --install
