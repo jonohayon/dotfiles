@@ -1,0 +1,60 @@
+# Reset EVERYTHING!
+unset TMOUT
+unset RPROMPT
+unset RPS1
+
+function git_get_branch () {
+  ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
+  ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
+  echo "${ref#refs/heads/}"
+}
+
+function git_get_commit () {
+  echo "$(command git rev-parse --short HEAD)"
+}
+
+function info_git () {
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    local branch=$(git_get_branch)
+    local commit=$(git_get_commit)
+    echo "[${branch}: ${commit}]"
+  fi
+}
+
+function battery_info () {
+  local percent="${$(pmset -g batt | awk '{print $2}' | grep '%')%?}"
+  local is_charging="${$(pmset -g batt | awk '{print $3}' | grep 'char')}"
+  if [[ "$is_charging" != "charged;" && "$is_charging" != "charging;" ]]; then
+    echo "[⇀ ${percent}]]"
+  else
+    echo "[⇋ ${percent}]]"
+  fi
+}
+
+function is_ssh () {
+  if [[ -n $SSH_CONNECTION ]]; then
+    echo "[SSH]"
+  fi
+}
+
+function put_spaces () {
+  local zero='%([BSUbfksu]|([FBK]|){*})'
+  local upperleft="%{$fg_bold[green]%}%T %{$fg_bold[yellow]%}%n %{$fg_bold[red]%}@ %{$fg_bold[cyan]%}%~"
+  upperleft=${#${(S%%)upperleft//$~zero/}}
+  local upperright="%{$fg_bold[magenta]%}$(info_git)$(battery_info)%{$fg_bold[green]%}[⬢ $(node -v)]"
+  upperright=${#${(S%%)upperright//$~zero/}}
+  local termwidth
+  (( termwidth = $(tput cols) - ${upperleft} - ${upperright} ))
+  local spacing=""
+  for i in {1..$termwidth}; do
+    spacing="${spacing} "
+  done
+  echo $spacing
+}
+
+function build_prompt () {
+PROMPT='%{$fg_bold[green]%}%T %{$fg_bold[yellow]%}%n %{$fg_bold[red]%}@ %{$fg_bold[cyan]%}%~$(put_spaces)%{$fg_bold[magenta]%}$(info_git)%{$fg_bold[white]%}$(battery_info)%{$fg_bold[green]%}[⬢ $(node -v)]\
+ %{$fg_bold[blue]%}→ %{$fg[red]%}'
+}
+
+add-zsh-hook precmd build_prompt
