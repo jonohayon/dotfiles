@@ -40,6 +40,9 @@ macos_routine
 source "./npm/main.sh"
 npm_routine
 
+source "./gem/main.sh"
+gem_routine
+
 source "./sublime/main.sh"
 sublime_routine
 

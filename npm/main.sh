@@ -18,7 +18,7 @@ install_modules () {
   OIFS=IFS
   IFS=$'\n'
   for module in ${modules[@]}; do
-    [[ $(echo $module_list | grep "${module}@") ]] \
+    [[ $(echo $module_list | grep "$module@") ]] \
       && ok "$module is already installed!" \
       || install_module $module
   done

@@ -3,7 +3,7 @@ spin () {
   local pid=$1
   local message=$2
 
-  local delay=0.05
+  local delay=0.15
 
   local frames=($'⠋' $'⠙' $'⠹' $'⠸' $'⠼' $'⠴' $'⠦' $'⠧' $'⠇' $'⠏') # Spinner frames array
   local t=9 # Hardcoded array length cuz why not really

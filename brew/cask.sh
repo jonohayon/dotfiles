@@ -1,5 +1,21 @@
 install_cask () {
-  warn "TODO - Implement install_cask"
+  brew tap caskroom/cask &> /dev/null &
+  spin $! "Installing Homebrew Cask..."
+  [ $? -eq 0 ] \
+    && ok "Installed Homebrew Cask!" \
+    || error "Couldn't install Homebrew Cask"
+
+  brew tap caskroom/fonts &> /dev/null &
+  spin $! "Installing Cask fonts..."
+  [ $? -eq 0 ] \
+    && ok "Installed Cask fonts!" \
+    || error "Couldn't install Cask fonts"
+
+  brew tap caskroom/versions
+  spin $! "Installing Cask alternate versions..."
+  [ $? -eq 0 ] \
+    && ok "Installed Cask alternate versions!" \
+    || error "Couldn't install Cask alternate versions"
 }
 
 install_cask_formula () {

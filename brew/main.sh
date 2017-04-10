@@ -23,6 +23,8 @@ brew_routine () {
     fi
     brew_update
 
+    install_cask
+
     message "Installing regular formulae..."
     install_brew_formulae
 
