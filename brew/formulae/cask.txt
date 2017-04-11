@@ -15,6 +15,7 @@ transmission
 slack
 skype
 android-studio
+ngrok
 font-hack
 font-fira-code
 font-firacode-nerd-font-mono

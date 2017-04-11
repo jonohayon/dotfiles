@@ -2,7 +2,7 @@ install_homebrew () {
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" &> /dev/null &
   spin $! "Installing Homebrew..."
   [ $? -eq 0 ] \
-    && ok "Installed Homebrew!" \
+    && ok "Installed Homebrew!    " \
     || (error "Couldn't install Homebrew; Exiting..." && exit 1)
 }
 

@@ -28,7 +28,7 @@ brew_routine () {
     message "Installing regular formulae..."
     install_brew_formulae
 
-    message "Installing cask formulae..."
-    install_cask_formulae
+    # message "Installing cask formulae..."
+    # install_cask_formulae
   title_off
 }

@@ -46,6 +46,9 @@ gem_routine
 source "./sublime/main.sh"
 sublime_routine
 
+source "./nvim/main.sh"
+nvim_routine
+
 title "Manual things left to do"
   message "1. Set up AWS credentials"
   message "2. Install Xcode"
