@@ -10,12 +10,12 @@ get_sudo () {
 }
 
 ask () {
-  p_magenta " [?] $1 "
+  p_magenta " $(get_padding)[?] $1 "
   read
 }
 
 ask_bool () {
-  p_magenta " [?] $1 [y/N] "
+  p_magenta " $(get_padding)[?] $1 [y/N] "
   read -n 1
   printf "\n"
 }

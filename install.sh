@@ -7,8 +7,8 @@ if ! [[ $(uname -s) == "Darwin" ]]; then
   exit 1
 fi
 
-p_yellow "  ____        _    __ _ _           
- |  _ \  ___ | |_ / _(_) | ___  ___ 
+p_yellow "  ____        _    __ _ _
+ |  _ \  ___ | |_ / _(_) | ___  ___
  | | | |/ _ \| __| |_| | |/ _ \/ __|
  | |_| | (_) | |_|  _| | |  __/\__ \\
  |____/ \___/ \__|_| |_|_|\___||___/\n\n"
@@ -33,6 +33,9 @@ brew_routine
 
 source "./zsh/main.sh"
 zsh_routine
+
+source "./git/main.sh"
+git_routine
 
 source "./macos/main.sh"
 macos_routine
