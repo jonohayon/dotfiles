@@ -11,7 +11,7 @@ install_cask () {
     && ok "Installed Cask fonts!    " \
     || error "Couldn't install Cask fonts"
 
-  brew tap caskroom/versions
+  brew tap caskroom/versions &> /dev/null &
   spin $! "Installing Cask alternate versions..."
   [ $? -eq 0 ] \
     && ok "Installed Cask alternate versions!    " \
