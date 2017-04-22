@@ -1,3 +1,5 @@
+tiny-care-terminal
+git-standup
 jest
 jest-codemods
 babel-cli
