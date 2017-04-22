@@ -86,7 +86,7 @@ export PROJECTS="$HOME/Desktop/Projects" # Projects directory
 # Tiny Care Terminal configuration
 export TTC_REPOS="~/dotfiles,~/Desktop/Projects"
 export TTC_WEATHER="Tel Aviv"
-export TTC_CELSIUS=true
+export TTC_APIKEYS=false
 
 ##################
 # Custom Aliases #
