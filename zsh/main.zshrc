@@ -76,17 +76,12 @@ export ZSH="$HOME/.antigen" # Set the home ZSH directory
 
 # Prefered editor
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR="nano"
+  export EDITOR='nano'
 else
-  export EDITOR="subl"
+  export EDITOR='subl'
 fi
 
 export PROJECTS="$HOME/Desktop/Projects" # Projects directory
-
-# Tiny Care Terminal configuration
-export TTC_REPOS="~/dotfiles,~/Desktop/Projects"
-export TTC_WEATHER="Tel Aviv"
-export TTC_APIKEYS=false
 
 ##################
 # Custom Aliases #
