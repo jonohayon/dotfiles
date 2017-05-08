@@ -3,6 +3,15 @@ unset TMOUT
 unset RPROMPT
 unset RPS1
 
+function current_music () {
+  local songData="$(osascript ~/dotfiles/zsh/itunes.scpt)"
+  if [[ $songData != "" ]]; then
+    echo "%{$fg_bold[cyan]%}[♪ ${songData}]"
+  else
+    echo ""
+  fi
+}
+
 function git_get_branch () {
   ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
@@ -17,7 +26,7 @@ function info_git () {
   if git rev-parse --git-dir > /dev/null 2>&1; then
     local branch=$(git_get_branch)
     local commit=$(git_get_commit)
-    echo "[${branch}: ${commit}]"
+    echo "%{$fg_bold[magenta]%}[${branch}: ${commit}]"
   fi
 }
 
@@ -25,9 +34,9 @@ function battery_info () {
   local percent="${$(pmset -g batt | awk '{print $2}' | grep '%')%?}"
   local is_charging="${$(pmset -g batt | awk '{print $3}' | grep 'char')}"
   if [[ "$is_charging" != "charged;" && "$is_charging" != "charging;" ]]; then
-    echo "[⇀ ${percent}]]"
+    echo "%{$fg_bold[white]%}[⇀ ${percent}]]"
   else
-    echo "[⇋ ${percent}]]"
+    echo "%{$fg_bold[white]%}[⇋ ${percent}]]"
   fi
 }
 
@@ -37,11 +46,23 @@ function is_ssh () {
   fi
 }
 
+function node_version () {
+  echo "%{$fg_bold[green]%}[⬢ $(node -v)]"
+}
+
+function left_prompt () {
+  echo "%{$fg_bold[green]%}%T %{$fg_bold[yellow]%}%n %{$fg_bold[red]%}@ %{$fg_bold[cyan]%}%~"
+}
+
+function second_prompt () {
+  echo "%{$fg_bold[blue]%}→ %{$fg[red]%}"
+}
+
 function put_spaces () {
   local zero='%([BSUbfksu]|([FBK]|){*})'
-  local upperleft="%{$fg_bold[green]%}%T %{$fg_bold[yellow]%}%n %{$fg_bold[red]%}@ %{$fg_bold[cyan]%}%~"
+  local upperleft="$(left_prompt)"
   upperleft=${#${(S%%)upperleft//$~zero/}}
-  local upperright="%{$fg_bold[magenta]%}$(info_git)$(battery_info)%{$fg_bold[green]%}[⬢ $(node -v)]"
+  local upperright="$(info_git)$(current_music)$(battery_info)$(node_version)"
   upperright=${#${(S%%)upperright//$~zero/}}
   local termwidth
   (( termwidth = $(tput cols) - ${upperleft} - ${upperright} ))
@@ -53,8 +74,8 @@ function put_spaces () {
 }
 
 function build_prompt () {
-PROMPT='%{$fg_bold[green]%}%T %{$fg_bold[yellow]%}%n %{$fg_bold[red]%}@ %{$fg_bold[cyan]%}%~$(put_spaces)%{$fg_bold[magenta]%}$(info_git)%{$fg_bold[white]%}$(battery_info)%{$fg_bold[green]%}[⬢ $(node -v)]\
- %{$fg_bold[blue]%}→ %{$fg[red]%}'
+PROMPT='$(left_prompt)$(put_spaces)$(info_git)$(current_music)$(battery_info)$(node_version)\
+ $(second_prompt)'
 }
 
 add-zsh-hook precmd build_prompt
