@@ -31,12 +31,15 @@ function info_git () {
 }
 
 function battery_info () {
-  local percent="${$(pmset -g batt | awk '{print $2}' | grep '%')%?}"
+  local awk2="$(pmset -g batt | awk '{print $2}')"
+  local percent="${$(echo $awk2 | grep '%')%?}"
   local is_charging="${$(pmset -g batt | awk '{print $3}' | grep 'char')}"
-  if [[ "$is_charging" != "charged;" && "$is_charging" != "charging;" ]]; then
+  if [[ "$awk2" == "drawing" ]]; then # Desktop
+    echo "%{$fg_bold[white]%}[⇋ ]"
+  elif [[ "$is_charging" != "charged;" && "$is_charging" != "charging;" ]]; then # Laptop battery
     echo "%{$fg_bold[white]%}[⇀ ${percent}]]"
   else
-    echo "%{$fg_bold[white]%}[⇋ ${percent}]]"
+    echo "%{$fg_bold[white]%}[⇋ ${percent}]]" # Laptop AC power
   fi
 }
 
