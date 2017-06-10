@@ -9,9 +9,12 @@ setup_zshrc () {
 }
 
 zsh_routine () {
-  title "ZSH configuration"
-    install_antigen
-    install_base16
-    setup_zshrc
-  title_off
+  local izsh=$1
+  if [[ $izsh == "true" ]]; then
+    title "ZSH configuration"
+      install_antigen
+      install_base16
+      setup_zshrc
+    title_off
+  fi
 }

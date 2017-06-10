@@ -26,8 +26,11 @@ install_modules () {
 }
 
 npm_routine () {
-  title "npm modules"
-    message "Installing npm modules..."
-    install_modules
-  title_off
+  local inpm=$1
+  if [[ "$inpm" == "true" ]]; then
+    title "npm modules"
+      message "Installing npm modules..."
+      install_modules
+    title_off
+  fi
 }

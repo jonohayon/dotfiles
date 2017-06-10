@@ -25,8 +25,11 @@ install_gems () {
 }
 
 gem_routine () {
-  title "Ruby gems"
-    message "Installing the gems..."
-    install_gems
-  title_off
+  local igem=$1
+  if [[ "$igem" == "true" ]]; then
+    title "Ruby gems"
+      message "Installing the gems..."
+      install_gems
+    title_off
+  fi
 }

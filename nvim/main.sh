@@ -11,18 +11,21 @@ install_vim_plug () {
 }
 
 nvim_routine () {
-  title "nvim configuration"
-    install_vim_plug
-    if [ $? -eq 0 ]; then
-      if [ -d "$HOME/.config/nvim" ]; then
-        ok "nvim config directory already exists!"
-      else
-        message "Creating the nvim config directory..."
-        mkdir -p "$HOME/.config/nvim"
-        ok "Created the nvim config directory!"
+  local invim=$1
+  if [[ "$invim" == "true" ]]; then
+    title "nvim configuration"
+      install_vim_plug
+      if [ $? -eq 0 ]; then
+        if [ -d "$HOME/.config/nvim" ]; then
+          ok "nvim config directory already exists!"
+        else
+          message "Creating the nvim config directory..."
+          mkdir -p "$HOME/.config/nvim"
+          ok "Created the nvim config directory!"
+        fi
+        cp "./nvim/init.vim" "$HOME/.config/nvim"
+        ok "Copied init.vim to $HOME/.config/nvim!"
       fi
-      cp "./nvim/init.vim" "$HOME/.config/nvim"
-      ok "Copied init.vim to $HOME/.config/nvim!"
-    fi
-  title_off
+    title_off
+  fi
 }

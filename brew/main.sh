@@ -14,6 +14,9 @@ brew_update () {
 }
 
 brew_routine () {
+  local ibrew=$1
+  local icask=$2
+
   title "Homebrew & Homebrew Cask"
     message "Looking for Homebrew..."
     if [ $(cmd_exists "brew") -eq 0 ]; then
@@ -25,10 +28,14 @@ brew_routine () {
 
     install_cask
 
-    message "Installing regular formulae..."
-    install_brew_formulae
+    if [[ $ibrew == "true" ]]; then
+      message "Installing regular formulae..."
+      install_brew_formulae
+    fi
 
-    # message "Installing cask formulae..."
-    # install_cask_formulae
+    if [[ $icask == "true" ]]; then
+      message "Installing cask formulae..."
+      install_cask_formulae
+    fi
   title_off
 }
