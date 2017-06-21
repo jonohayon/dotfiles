@@ -19,7 +19,6 @@ mamp
 logitech-gaming-software
 rdm
 sip
-mactex
 tunnelbear
 whatsapp
 sourcetree
