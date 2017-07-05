@@ -1,0 +1,16 @@
+{
+  "Mocha test template": {
+    "prefix": "mochatest",
+    "body": [
+      "const { expect } = require('chai')",
+      "",
+      "describe('$1', () => {",
+      "\tit('should $2', () => {",
+      "\t\t// body",
+      "\t})",
+      "})",
+      ""
+    ],
+    "description": "A standard.js formatted Mocha test template"
+  }
+}

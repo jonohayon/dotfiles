@@ -15,6 +15,7 @@ dot_git="true"
 dot_macos="true"
 dot_npm="true"
 dot_gem="true"
+dot_vscode="true"
 dot_sublime="true"
 dot_nvim="true"
 dot_latex="false"
@@ -26,6 +27,7 @@ edit_options () {
     dot_git="false"
     dot_zsh="false"
     dot_sublime="false"
+    dot_vscode="false"
     return
   fi
   eval "dot_$1=\"$2\""
@@ -106,6 +108,9 @@ gem_routine "$dot_gem"
 
 source "./latex/main.sh"
 latex_routine "$dot_latex"
+
+source "./vscode/main.sh"
+vscode_routine "$dot_vscode"
 
 source "./sublime/main.sh"
 sublime_routine "$dot_sublime"

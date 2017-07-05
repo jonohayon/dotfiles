@@ -1,0 +1,16 @@
+AndrsDC.base16-themes
+Compulim.vscode-mocha
+EditorConfig.EditorConfig
+James-Yu.latex-workshop
+dbaeumer.vscode-eslint
+eg2.tslint
+freebroccolo.reasonml
+gerane.Theme-Brogrammer
+hackwaly.ocaml
+maelvalais.autoconf
+ms-vscode.sublime-keybindings
+rebornix.scheme
+redhat.java
+rlovelett.vscode-swift-language
+spoonscen.es6-mocha-snippets
+tomoki1207.pdf
