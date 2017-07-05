@@ -1,0 +1,2 @@
+# Make sure nickname file isn't uploaded to Git
+.nickname

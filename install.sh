@@ -17,6 +17,7 @@ dot_npm="true"
 dot_gem="true"
 dot_sublime="true"
 dot_nvim="true"
+dot_machine_name="true"
 
 edit_options () {
   # Update mode
@@ -25,6 +26,7 @@ edit_options () {
     dot_git="false"
     dot_zsh="false"
     dot_sublime="false"
+    dot_machine_name="false"
     return
   fi
   eval "dot_$1=\"$2\""
@@ -71,6 +73,19 @@ get_sudo
 [ $? -eq 0 ] \
   && ok "Got your sudo, thanks!" \
   || not_sudo
+
+if [[ -f "$HOME/dotfiles/.nickname" ]]; then
+  nickname=$(cat "$HOME/dotfiles/.nickname")
+  ok "Hello $USER@$nickname!"
+else
+  ask "What's your machine's nickname (default: $USER-computer)?"
+  possible_nick=$(get_answer)
+  if [[ "$possible_nick" == "" ]]; then
+    possible_nick="$USER-computer"
+  fi
+  echo $possible_nick > "$HOME/dotfiles/.nickname"
+  ok "Configured your machine nickname!"
+fi
 
 source "./brew/main.sh"
 brew_routine "$dot_brew" "$dot_cask"
