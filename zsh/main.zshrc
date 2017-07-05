@@ -76,25 +76,23 @@ export ZSH="$HOME/.antigen" # Set the home ZSH directory
 
 # Prefered editor
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nano'
+  export EDITOR='nvim'
 else
-  export EDITOR='subl'
+  export EDITOR='code'
 fi
 
-export PROJECTS="$HOME/Desktop/Projects" # Projects directory
+export CODEDIR="$HOME/code" # Projects directory
 
 ##################
 # Custom Aliases #
 ##################
-alias pdir="cd $PROJECTS" # Cd to projects directory
+alias pdir="cd $CODEDIR" # Cd to projects directory
 alias nindex="node index.js" # Run index.js using nodejs
 alias smocha="sudo mocha" # Run mocha tests (nodejs)
 alias zshrc="source ~/.zshrc" # Update the zshrc
 alias zshtheme="$EDITOR ~/.zshtheme" # Edit my theme
 alias zshconfig="$EDITOR ~/.zshrc" # Edit the zshrc
 alias sfa="standard-format -w ./*.js" # Formats all of the js files in . for standardjs
-alias npmprivate="npm config set registry http://repo.dev.wix/artifactory/api/npm/npm-repos" # Wix private npm
-alias npmpublic="npm config set registry https://registry.npmjs.org/" # Set public npm back
 alias cls="clear" # Just cuz it's smaller, not cuz Windows
 alias גב="cd" # When in hebrew mode, cd still works
 alias בךקשר="clear" # When in hebrew mode, clear still works

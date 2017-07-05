@@ -37,3 +37,6 @@ wget
 watchman
 zsh-completions
 openssl
+yarn
+leiningen
+

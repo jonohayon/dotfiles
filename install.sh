@@ -17,7 +17,7 @@ dot_npm="true"
 dot_gem="true"
 dot_sublime="true"
 dot_nvim="true"
-dot_machine_name="true"
+dot_latex="false"
 
 edit_options () {
   # Update mode
@@ -26,7 +26,6 @@ edit_options () {
     dot_git="false"
     dot_zsh="false"
     dot_sublime="false"
-    dot_machine_name="false"
     return
   fi
   eval "dot_$1=\"$2\""
@@ -104,6 +103,9 @@ npm_routine "$dot_npm"
 
 source "./gem/main.sh"
 gem_routine "$dot_gem"
+
+source "./latex/main.sh"
+latex_routine "$dot_latex"
 
 source "./sublime/main.sh"
 sublime_routine "$dot_sublime"
