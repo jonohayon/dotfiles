@@ -27,6 +27,7 @@ sourcetree
 google-trends
 minecraft
 android-file-transfer
+google-chrome
 google-chrome-canary
 java
 postman

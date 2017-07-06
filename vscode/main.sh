@@ -29,8 +29,8 @@ vscode_routine () {
 
       message "Configuring VS Code..."
       mkdir -p "$HOME/Library/Application\ Support/Code/User"
-      ln -s "$HOME/dotfiles/vscode/snippets/" "$HOME/Library/Application\ Support/Code/User/snippets"
-      ln -s "$HOME/dotfiles/vscode/settings.json" "$HOME/Library/Application\ Support/Code/User/settings.json"
+      ln -s "$HOME/dotfiles/vscode/snippets/" "$HOME/Library/Application Support/Code/User/snippets"
+      ln -s "$HOME/dotfiles/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
       ok "Configured VS Code!"
     title_off
   fi
