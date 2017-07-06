@@ -28,8 +28,9 @@ vscode_routine () {
       install_extensions
 
       message "Configuring VS Code..."
-      ln -s "$HOME/dotfiles/vscode/snippets/" "~/Library/Application\ Support/Code/User/snippets"
-      ln -s "$HOME/dotfiles/vscode/settings.json" "~/Library/Application\ Support/Code/User/settings.json"
+      mkdir -p "$HOME/Library/Application\ Support/Code/User"
+      ln -s "$HOME/dotfiles/vscode/snippets/" "$HOME/Library/Application\ Support/Code/User/snippets"
+      ln -s "$HOME/dotfiles/vscode/settings.json" "$HOME/Library/Application\ Support/Code/User/settings.json"
       ok "Configured VS Code!"
     title_off
   fi

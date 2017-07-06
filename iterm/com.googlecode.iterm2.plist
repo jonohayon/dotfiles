@@ -61,9 +61,9 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>402 162 796 473 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2159 285 660 467 1920 0 1920 1057 </string>
+	<string>284 272 660 467 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>283 100 650 452 0 0 1920 1057 </string>
+	<string>175 58 660 467 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>

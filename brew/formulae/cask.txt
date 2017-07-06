@@ -1,4 +1,5 @@
 visual-studio-code
+1password
 appcleaner
 bluej
 carbon-copy-cloner
