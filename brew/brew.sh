@@ -15,6 +15,8 @@ install_brew_formula () {
 }
 
 install_brew_formulae () {
+  brew tap ravenac95/sudolikeaboss
+
   local formulae=$(cat "./brew/formulae/regular.txt")
   OIFS=IFS
   IFS=$'\n'
