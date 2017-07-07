@@ -8,6 +8,10 @@
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
 	<integer>1</integer>
+	<key>Coprocess MRU</key>
+	<array>
+		<string>sudolikeaboss</string>
+	</array>
 	<key>Default Bookmark Guid</key>
 	<string>AD6D0D54-F4AB-4875-AF68-7BC48B17DE7C</string>
 	<key>EnableDivisionView</key>
@@ -56,14 +60,10 @@
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
-	<key>NSWindow Frame NSFontPanel</key>
-	<string>2679 33 528 94 1920 0 1920 1080 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>402 162 796 473 0 0 1440 900 </string>
+	<string>269 83 1016 512 0 0 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>284 272 660 467 0 0 1440 877 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>175 58 660 467 0 0 1440 877 </string>
+	<string>420 140 660 467 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -360,6 +360,13 @@
 					<integer>11</integer>
 					<key>Text</key>
 					<string>0x7f</string>
+				</dict>
+				<key>0x5c-0x100000</key>
+				<dict>
+					<key>Action</key>
+					<integer>35</integer>
+					<key>Text</key>
+					<string>sudolikeaboss</string>
 				</dict>
 				<key>0xf700-0x220000</key>
 				<dict>
@@ -663,11 +670,13 @@
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>DC68501A-BEC0-4DFD-B089-E341C632165B</string>
-	<key>NoSyncPermissionToShowTip</key>
-	<false/>
+	<string>6050BF0A-A72F-4825-BF85-4552A97D363F</string>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>519729433.20493501</real>
+	<real>521055014.57608998</real>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -708,11 +717,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml?shard=95</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=86</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-07-05T13:45:28Z</date>
+	<date>2017-07-06T17:30:55Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
