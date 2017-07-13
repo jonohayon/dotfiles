@@ -8,7 +8,7 @@ set modelines=1
 
 " Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'chriskempson/base16-vim' " For da themes
+Plug 'chriskempson/base16-vim' " For da themese
 Plug 'vim-airline/vim-airline' " For da shit
 Plug 'vim-airline/vim-airline-themes' " For da shit's themes
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " For da beloved sidebar
@@ -28,6 +28,10 @@ Plug 'jeetsukumaran/vim-buffergator' " A nice window for switching buffers
 Plug 'jistr/vim-nerdtree-tabs' " NERDTree + tabs
 Plug 'mhinz/vim-startify' " Upping my start window game abit
 Plug 'ryanoasis/vim-devicons' " NERDTree file iconz
+Plug 'SirVer/ultisnips' " Code snipptes #1
+Plug 'honza/vim-snippets' " Code snippets #2
+Plug 'mattn/emmet-vim' " Emmet
+Plug 'leafgarland/typescript-vim' " TypeScript syntax highlighting
 call plug#end()
 
 " Editor shit

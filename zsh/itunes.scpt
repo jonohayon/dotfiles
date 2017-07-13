@@ -9,9 +9,9 @@ if application "iTunes" is running then
         -- Trim the string to a maximum length of 35 for better display
         if (length of songName) > 35 then
           set trimmedName to ((characters 1 thru 35 of songName) as string)
-          return trimmedName & " - " & songArtist
+          return trimmedName
         else
-          return songName & " - " & songArtist
+          return songName
         end if
       on error err
       end try
