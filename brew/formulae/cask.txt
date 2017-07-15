@@ -1,4 +1,5 @@
 visual-studio-code
+vimr
 1password
 appcleaner
 bluej

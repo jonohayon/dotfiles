@@ -49,6 +49,11 @@ set timeout
 set timeoutlen=1000
 set ttimeoutlen=50
 
+" VimR (gui) settings
+if has('gui_running')
+  set lines=999 columns=999
+endif
+
 " Syntax highlighting and linters
 let g:syntastic_javascript_checkers = ['standard', 'eslint']
 
@@ -66,7 +71,7 @@ map <C-b> :NERDTreeToggle %:p:h<CR>
 " Not used a ton - source the current file and install plugins (cuz vimrc is bae)
 map <F8> :source %<CR>:PlugInstall<CR>
 " Toggle comment on current line
-map <C-\> gcc<CR>k
+map <D-_> gcc<CR>k
 " Disabling arrow keys
 noremap <Up> <NOP>
 noremap <Down> <NOP>
