@@ -30,8 +30,8 @@ Plug 'mhinz/vim-startify' " Upping my start window game abit
 Plug 'ryanoasis/vim-devicons' " NERDTree file iconz
 Plug 'SirVer/ultisnips' " Code snipptes #1
 Plug 'honza/vim-snippets' " Code snippets #2
-Plug 'mattn/emmet-vim' " Emmet
 Plug 'leafgarland/typescript-vim' " TypeScript syntax highlighting
+Plug 'marciomazza/vim-brogrammer-theme' " Brogrammer theme
 call plug#end()
 
 " Editor shit
@@ -60,29 +60,28 @@ set ignorecase
 set hlsearch
 set gdefault
 
-" Mappings - making vim work pretty much like Sublime cuz I'm a n00b lmao
+" Mappings
 " Open sidebar - NERDTree
 map <C-b> :NERDTreeToggle %:p:h<CR>
 " Not used a ton - source the current file and install plugins (cuz vimrc is bae)
 map <F8> :source %<CR>:PlugInstall<CR>
-" Save the document
-imap <C-s> <Esc>:w<CR>i
-" Go to end of line
-imap <C-e> <Esc>$i<Right>
-" Go to beginning of line
-imap <C-a> <Esc>^i
 " Toggle comment on current line
-imap <D-_> <Esc>gcc<CR><Up>i
+map <C-\> gcc<CR>k
+" Disabling arrow keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 " Colorz and theme action
 set termguicolors
 let base16colorspace = 256
 set background=dark
-colorscheme base16-bright
+colorscheme brogrammer
 syntax on
 
 " Airline Config
-let g:airline_theme = 'base16_bright'
+let g:airline_theme = 'wombat'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
