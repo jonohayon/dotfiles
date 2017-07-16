@@ -42,3 +42,5 @@ openssl
 yarn
 leiningen
 sudolikeaboss
+cmake
+ctags

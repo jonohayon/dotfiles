@@ -32,6 +32,9 @@ Plug 'SirVer/ultisnips' " Code snipptes #1
 Plug 'honza/vim-snippets' " Code snippets #2
 Plug 'leafgarland/typescript-vim' " TypeScript syntax highlighting
 Plug 'marciomazza/vim-brogrammer-theme' " Brogrammer theme
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy file search
+Plug 'jonohayon/todo-vim' " Todo comments manager
+Plug 'editorconfig/editorconfig-vim' " Editorconfig support
 call plug#end()
 
 " Editor shit
@@ -65,18 +68,35 @@ set ignorecase
 set hlsearch
 set gdefault
 
+" Todo window
+let g:todo_vertical = 1
+let g:todo_right = 1
+let g:todo_winwidth = 30
+
 " Mappings
+
 " Open sidebar - NERDTree
 map <C-b> :NERDTreeToggle %:p:h<CR>
 " Not used a ton - source the current file and install plugins (cuz vimrc is bae)
 map <F8> :source %<CR>:PlugInstall<CR>
 " Toggle comment on current line
 map <D-_> gcc<CR>k
-" Disabling arrow keys
+" Tagbar shortcut
+map <D-g> :Tagbar<CR>
+" fzf
+map <D-f> :FZF<CR>
+" Todo comments panel
+map <C-t> :TODOToggle<CR>
+
+" Disabling arrow keys in both insert and normal mode
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
 
 " Colorz and theme action
 set termguicolors
@@ -86,7 +106,7 @@ colorscheme brogrammer
 syntax on
 
 " Airline Config
-let g:airline_theme = 'wombat'
+let g:airline_theme = 'wombat' " Looks good w/ brogrammer
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
