@@ -15,7 +15,7 @@ install_python2_bindings () {
   spin $! "Installing neovim python 2 bindings..."
   local rescode=$?
   [ $rescode -eq 0 ] \
-    && ok "Installed python 2 bindings    " \
+    && ok "Installed python 2 bindings" \
     || error "Couldn't install python 2 bindings"
   return $rescode
 }
@@ -25,7 +25,7 @@ install_python3_bindings () {
   spin $! "Installing neovim python 3 bindings..."
   local rescode=$?
   [ $rescode -eq 0 ] \
-    && ok "Installed python 3 bindings!    " \
+    && ok "Installed python 3 bindings!" \
     || error "Couldn't install python 3 bindings"
   return $rescode
 }

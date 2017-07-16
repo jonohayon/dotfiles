@@ -8,6 +8,7 @@ if ! [[ $(uname -s) == "Darwin" ]]; then
 fi
 
 # Option parsing
+only_mode="false"
 dot_cask="true"
 dot_brew="true"
 dot_zsh="true"
@@ -22,19 +23,24 @@ dot_latex="false"
 
 edit_options () {
   # Update mode
-  if [[ "$1" == "update" ]]; then
+  if [[ $1 == "update" ]]; then
     dot_cask="false"
     dot_git="false"
     dot_zsh="false"
     dot_sublime="false"
     dot_vscode="false"
-    return
+  elif [[ $1 == "only" ]]; then
+    only_mode="true"
+    local cmd="welcome_routine; source \"./$2/main.sh\"; $2_routine \"true\""
+    if [[ $2 == "brew" ]]; then cmd="$cmd \"true\""; fi
+    eval $cmd
+  else
+    eval "dot_$1=\"$2\""
   fi
-  eval "dot_$1=\"$2\""
   return
 }
 
-while [[ "$1" != "" ]]; do
+while [[ $1 != "" ]]; do
   case $1 in
     -w | --with )
       shift
@@ -46,6 +52,11 @@ while [[ "$1" != "" ]]; do
       message "Disabled $1"
       edit_options $1 "false"
       ;;
+    -o | --only )
+      shift
+      message "Installing only $1"
+      edit_options "only" $1
+      ;;
     -u | --update )
       message "Installing in update mode"
       edit_options "update"
@@ -54,73 +65,58 @@ while [[ "$1" != "" ]]; do
   shift
 done
 
-p_yellow "  ____        _    __ _ _
+if [[ $only_mode != "true" ]]; then
+  p_yellow "  ____        _    __ _ _
  |  _ \  ___ | |_ / _(_) | ___  ___
  | | | |/ _ \| __| |_| | |/ _ \/ __|
  | |_| | (_) | |_|  _| | |  __/\__ \\
  |____/ \___/ \__|_| |_|_|\___||___/\n\n"
-message "Welcome to my Dotfiles!\n"
+  message "Welcome to my Dotfiles!\n"
 
-disclaimer
-ask_bool "Do you wish to continue?"
+  disclaimer
+  ask_bool "Do you wish to continue?"
 
-if !(positive_answer); then
-  error "Okay, maybe another time. Goodbye!"
-  exit 1
-fi
-
-message "First of all, I need your sudo permissions."
-get_sudo
-[ $? -eq 0 ] \
-  && ok "Got your sudo, thanks!" \
-  || not_sudo
-
-if [[ -f "$HOME/dotfiles/.nickname" ]]; then
-  nickname=$(cat "$HOME/dotfiles/.nickname")
-  ok "Hello $USER@$nickname!"
-else
-  ask "What's your machine's nickname (default: $USER-computer)?"
-  possible_nick=$(get_answer)
-  if [[ "$possible_nick" == "" ]]; then
-    possible_nick="$USER-computer"
+  if !(positive_answer); then
+    error "Okay, maybe another time. Goodbye!"
+    exit 1
   fi
-  echo $possible_nick > "$HOME/dotfiles/.nickname"
-  ok "Configured your machine nickname!"
 fi
 
-source "./brew/main.sh"
-brew_routine "$dot_brew" "$dot_cask"
 
-source "./zsh/main.sh"
-zsh_routine "$dot_zsh"
+if [[ $only_mode != "true" ]]; then
+  welcome_routine
 
-source "./git/main.sh"
-git_routine "$dot_git"
+  source "./brew/main.sh"
+  brew_routine "$dot_brew" "$dot_cask"
 
-source "./macos/main.sh"
-macos_routine "$dot_macos"
+  source "./zsh/main.sh"
+  zsh_routine "$dot_zsh"
 
-source "./npm/main.sh"
-npm_routine "$dot_npm"
+  source "./git/main.sh"
+  git_routine "$dot_git"
 
-source "./gem/main.sh"
-gem_routine "$dot_gem"
+  source "./macos/main.sh"
+  macos_routine "$dot_macos"
 
-source "./latex/main.sh"
-latex_routine "$dot_latex"
+  source "./npm/main.sh"
+  npm_routine "$dot_npm"
 
-source "./vscode/main.sh"
-vscode_routine "$dot_vscode"
+  source "./gem/main.sh"
+  gem_routine "$dot_gem"
 
-source "./sublime/main.sh"
-sublime_routine "$dot_sublime"
+  source "./latex/main.sh"
+  latex_routine "$dot_latex"
 
-source "./nvim/main.sh"
-nvim_routine "$dot_nvim"
+  source "./sublime/main.sh"
+  sublime_routine "$dot_sublime"
 
-title "Manual things left to do"
-  message "1. Set up AWS credentials"
-  message "2. Install Xcode"
-title_off
+  source "./nvim/main.sh"
+  nvim_routine "$dot_nvim"
+
+  title "Manual things left to do"
+    message "1. Set up AWS credentials"
+    message "2. Install Xcode"
+  title_off
+fi
 
 script_finish

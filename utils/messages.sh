@@ -58,7 +58,7 @@ warn () {
 }
 
 ok () {
-  p_green " $(get_padding)[✓︎] $1\n"
+  p_green " $(get_padding)[✓︎] $1                    \n" # Just some extra padding
 }
 
 message () {
