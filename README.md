@@ -12,11 +12,6 @@ It's time for me to create some dotfiles, isn't it?
  - ZSH prompt
  - Global `npm` modules + `brew` packages
  - Apps and fonts from `brew cask`
-
-## What it doesn't include:
- - Coffee making programs
- - All of the manual stuff
- - ZSH installation
  - And more!
 
 ## Installation
