@@ -2,14 +2,16 @@ Dotfiles
 ===
 It's time for me to create some dotfiles, isn't it?
 
-*Disclaimer - these dotfiles are supported only in macOS at the moment. Sorry linux people*
+*Disclaimer - these dotfiles are fully supported only in macOS at the moment, but I'm trying to add partial support for linux.*
 
 ## What it includes:
+ - Neovim configuration
+ - iTerm configuration
+ - LaTeX install scripts (for macOS and soon Linux)
  - Sublime Text 3 configuration
  - ZSH prompt
  - Global `npm` modules + `brew` packages
  - Apps and fonts from `brew cask`
- - And more!
 
 ## What it doesn't include:
  - Coffee making programs
@@ -25,9 +27,13 @@ xcode-select --install
 # Clone the repo
 git clone https://github.com/jonohayon/dotfiles ~/dotfiles
 
-# IMPORTANT - Make sure you are using ZSH as your shell!
-chsh -s $(which zsh)
-
 # Run the install script!
 cd ~/dotfiles && ./install.sh
 ```
+
+## Screenshots
+Terminal: ![alt text][terminal]
+Neovim (w/vimR): ![alt text][vimr]
+
+[terminal]: https://puu.sh/wXL2I/dc3d99a4d7.png "Terminal Screenshot"
+[vimr]: https://puu.sh/wXL8H/c85908f355.png "vimR Screenshot"
