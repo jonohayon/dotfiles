@@ -47,22 +47,17 @@ antigen apply
 export NVM_DIR="/Users/jonathano/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-# Commented because I don't use nvm at the moment
-# # Some nvm hooks
-# function load-nvmrc() {
-#   if [[ -f .nvmrc && -r .nvmrc ]]; then
-#     if [[ $(nvm ls | grep `cat ./.nvmrc`) != "" ]]; then
-#       nvm use
-#     else
-#       echo "Node version $(cat ./.nvmrc) wasn't found; Installing..."
-#       nvm install $(cat ./.nvmrc); nvm use
-#     fi
-#   elif [[ $(nvm version) != $(nvm version default)  ]]; then
-#     nvm use default
-#   fi
-# }
-# add-zsh-hook chpwd load-nvmrc
-# load-nvmrc
+# Zsh vi mode
+bindkey -v
+bindkey "^?" backward-delete-char
+export KEYTIMEOUT=1
+
+function zle_keymap_select {
+  build_prompt
+  zle && zle reset-prompt
+}
+
+zle -N zle_keymap_select
 
 # A simple calculator for the command line
 function calc () { echo "$(($@))" }
@@ -78,7 +73,7 @@ export ZSH="$HOME/.antigen" # Set the home ZSH directory
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 else
-  export EDITOR='code'
+  export EDITOR='vimr' # Just cuz it's faster than nvim in iTerm tbh
 fi
 
 export CODEDIR="$HOME/code" # Projects directory
@@ -170,3 +165,5 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then # Linux paths
 fi
 
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -32,14 +32,8 @@ function battery_info () {
   local lastline="$(pmset -g batt | tail -n 1)"
   local percent="${$(echo $lastline | awk '{print $3}' | grep '%')%?}"
   local charging="${$(echo $lastline | awk '{print $4}' | grep ';')%?}"
-  local symbol="$([ $charging == "charging" ] && echo "⇋" || echo "⇀")"
+  local symbol="$([[ $charging =~ "^dis" ]] && echo "⇀" || echo "⇋")"
   echo "%{$fg_bold[white]%}[${symbol} ${percent}%]"
-}
-
-function is_ssh () {
-  if [[ -n $SSH_CONNECTION ]]; then
-    echo "[SSH]"
-  fi
 }
 
 function node_version () {
