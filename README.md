@@ -29,6 +29,7 @@ cd ~/dotfiles && ./install.sh
 ## Screenshots
 Terminal: ![alt text][terminal]
 Note: the battery script only works for macOS Sierra and upwards because Apple are idiots.
+
 Neovim (w/vimR): ![alt text][vimr]
 
 [terminal]: https://puu.sh/wXL2I/dc3d99a4d7.png "Terminal Screenshot"
