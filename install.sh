@@ -7,6 +7,12 @@ if ! [[ $(uname -s) == "Darwin" ]]; then
   exit 1
 fi
 
+############   WARNING   ############
+# If you care about beautiful code, #
+# please don't look below. This     #
+# portion is hacky and ugly.        #
+#####################################
+
 # Option parsing
 only_mode="false"
 dot_cask="true"
