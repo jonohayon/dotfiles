@@ -1,14 +1,17 @@
 install_culmus_latex () {
+  local filename="culmus-latex-0.7"
+
   # Step 1 - download culmus-latex
-  wget -O "$HOME/culmus-latex.tar" https://downloads.sourceforge.net/project/ivritex/culmus-latex/culmus-latex-0.7/culmus-latex-0.7-r1.tar.gz &> /dev/null &
+  wget -O "$HOME/$filename.tar" "https://downloads.sourceforge.net/project/ivritex/culmus-latex/$filename/$filename-r1.tar.gz" &> /dev/null &
   spin $! "Downloading culmus-latex..."
   [ $? -eq 0 ] \
     && ok "Downloaded culmus-latex!    " \
     || error "Couldn't download culmus-latex"
 
   # Step 2 - untarball and cd to it
-  tar xvf "$HOME/culmus-latex.tar"
-  cd "$HOME/culmus-latex"
+  tar xvf "$HOME/$filename.tar" -C "$HOME" &> /dev/null &
+  spin $! "Extracting culmus-latex"
+  cd "$HOME/$filename-r1"
 
   # Step 3 - configure it
   sudo make TEXMFDIR="/usr/local/texlive/texmf-local/" &> /dev/null &
@@ -32,6 +35,11 @@ latex_routine () {
   local ilatex=$1
 
   if [[ $ilatex == "true" ]]; then
+    # Load the cask installation script if we're only doing the LaTeX stuff
+    if [[ $only_mode == "true" ]]; then
+      source "./brew/cask.sh"
+    fi
+
     title "LaTeX"
       message "Installing mactex..."
       install_cask_formula "mactex"

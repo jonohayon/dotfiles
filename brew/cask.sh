@@ -22,8 +22,8 @@ install_cask_formula () {
   brew cask install $1 &> /dev/null &
   spin $! "Installing $1..."
   [ $? -eq 0 ] \
-    && ok "Installed $formula!    " \
-    || formula_error $formula
+    && ok "Installed $1!    " \
+    || formula_error $1
 }
 
 install_cask_formulae () {
