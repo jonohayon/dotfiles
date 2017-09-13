@@ -20,7 +20,7 @@ Plug 'mxw/vim-jsx' " Syntax highlighting for JSX aka React
 Plug 'pangloss/vim-javascript' " Syntax highlighting for JS aka lyfe
 Plug 'toyamarinyon/vim-swift' " Syntax highlighting for Swift aka love
 Plug 'latex-box-team/latex-box' " The real deal for LaTeX in Vim
-Plug 'Valloric/YouCompleteMe' " Autocomplete ayyy
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocomplete
 Plug 'mattn/emmet-vim' " Emmet 4 vim
 Plug 'airblade/vim-gitgutter' " GitGutter ayy
 Plug 'raimondi/delimitmate' " Match dem qutes, parens etc.
@@ -28,13 +28,21 @@ Plug 'jeetsukumaran/vim-buffergator' " A nice window for switching buffers
 Plug 'jistr/vim-nerdtree-tabs' " NERDTree + tabs
 Plug 'mhinz/vim-startify' " Upping my start window game abit
 Plug 'ryanoasis/vim-devicons' " NERDTree file iconz
-Plug 'SirVer/ultisnips' " Code snipptes #1
-Plug 'honza/vim-snippets' " Code snippets #2
 Plug 'leafgarland/typescript-vim' " TypeScript syntax highlighting
 Plug 'marciomazza/vim-brogrammer-theme' " Brogrammer theme
+Plug 'dracula/vim' " Dracula theme
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy file search
 Plug 'jonohayon/todo-vim' " Todo comments manager
 Plug 'editorconfig/editorconfig-vim' " Editorconfig support
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' } " JavaScript support for deoplete
+Plug 'zchee/deoplete-clang' " C Family support for deoplete
+Plug 'mitsuse/autocomplete-swift' " Swift support for deoplete
+Plug 'eagletmt/neco-ghc' " Haskell support for deoplete
+Plug 'othree/jspc.vim' " Better parameter completion for JavaScript
+Plug 'Shougo/neosnippet.vim' " Snippets support for deoplete
+Plug 'Shougo/neosnippet-snippets' " Snippets for neosnippet
+Plug 'cespare/vim-toml' " TOML syntax highlighting
+Plug 'arrufat/vala.vim' " Vala stuff
 call plug#end()
 
 " Editor shit
@@ -51,6 +59,8 @@ set laststatus=2
 set timeout
 set timeoutlen=1000
 set ttimeoutlen=50
+set noswapfile
+set ruler
 
 " VimR (gui) settings
 if has('gui_running')
@@ -80,21 +90,43 @@ map <C-b> :NERDTreeToggle %:p:h<CR>
 " Not used a ton - source the current file and install plugins (cuz vimrc is bae)
 map <F8> :source %<CR>:PlugInstall<CR>
 " Toggle comment on current line
-map <D-_> gcc<CR>k
+map <D-_> gcc
 " Tagbar shortcut
 map <D-g> :Tagbar<CR>
 " fzf
 map <D-f> :FZF<CR>
 " Todo comments panel
 map <C-t> :TODOToggle<CR>
+" Buffer window
+map <C-x> :BuffergatorToggle<CR>
+
+" Hebrew writing (mainly for LaTeX)
+map <D-h> :set invhk inrl<CR>
+
+" Deoplete config
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+
+" Neosnippet configuration
+imap <expr><TAB> neosnippet#expandable_or_jumpable()
+  \ ? "\<Plug>(neosnippet_expand_or_jump)"
+  \ : pumvisible() ? "\<C-n>" : "\<TAB>"
+
+smap <expr><TAB> neosnippet#expandable_or_jumpable()
+  \ ? "\<Plug>(neosnippet_expand_or_jump)"
+  \ : "\<TAB>"
+
+" TernJS config
+let g:tern#filetypes = ['jsx', 'javascript.jsx', 'vue']
+
+" Swift autocomplete config
+autocmd FileType swift imap <buffer> <C-x> <Plug>(autocomplete_swift_jump_to_placeholder)
 
 " Disabling arrow keys in both insert and normal mode
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
 inoremap <Left> <NOP>
 inoremap <Right> <NOP>
 
@@ -102,11 +134,12 @@ inoremap <Right> <NOP>
 set termguicolors
 let base16colorspace = 256
 set background=dark
-colorscheme brogrammer
+" colorscheme brogrammer
+colorscheme dracula
 syntax on
 
 " Airline Config
-let g:airline_theme = 'wombat' " Looks good w/ brogrammer
+let g:airline_theme = 'deus' " Looks good w/ brogrammer
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
