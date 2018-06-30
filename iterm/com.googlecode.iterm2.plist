@@ -10,6 +10,8 @@
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
 	<integer>1</integer>
+	<key>AppleWindowTabbingMode</key>
+	<string>manual</string>
 	<key>Coprocess MRU</key>
 	<array>
 		<string>sudolikeaboss</string>
@@ -64,10 +66,12 @@
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>855 172 445 103 0 0 1440 900 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>650 499 620 392 0 0 1920 1057 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>154 131 916 416 0 0 1440 900 </string>
+	<string>-1651 213 1018 447 -1920 0 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>260 97 660 467 0 0 1440 877 </string>
+	<string>-1188 285 660 467 -1920 0 1920 1057 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -740,7 +744,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-07-12T20:41:01Z</date>
+	<date>2017-09-26T19:08:20Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
@@ -756,7 +760,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.1.beta.5</string>
+	<string>3.1.2</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

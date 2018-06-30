@@ -35,7 +35,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy file s
 Plug 'jonohayon/todo-vim' " Todo comments manager
 Plug 'editorconfig/editorconfig-vim' " Editorconfig support
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' } " JavaScript support for deoplete
-Plug 'zchee/deoplete-clang' " C Family support for deoplete
+Plug 'tweekmonster/deoplete-clang2' " C Family support for deoplete
 Plug 'mitsuse/autocomplete-swift' " Swift support for deoplete
 Plug 'eagletmt/neco-ghc' " Haskell support for deoplete
 Plug 'othree/jspc.vim' " Better parameter completion for JavaScript
@@ -43,6 +43,9 @@ Plug 'Shougo/neosnippet.vim' " Snippets support for deoplete
 Plug 'Shougo/neosnippet-snippets' " Snippets for neosnippet
 Plug 'cespare/vim-toml' " TOML syntax highlighting
 Plug 'arrufat/vala.vim' " Vala stuff
+Plug 'fatih/vim-go' " Go stuff
+Plug 'posva/vim-vue' " Vue.js
+Plug 'dart-lang/dart-vim-plugin' " Dart language support
 call plug#end()
 
 " Editor shit
@@ -61,14 +64,11 @@ set timeoutlen=1000
 set ttimeoutlen=50
 set noswapfile
 set ruler
-
-" VimR (gui) settings
-if has('gui_running')
-  set lines=999 columns=999
-endif
+set colorcolumn=160
 
 " Syntax highlighting and linters
 let g:syntastic_javascript_checkers = ['standard', 'eslint']
+let g:syntastic_typescript_checkers = ['standard', 'eslint']
 
 " Search
 set incsearch
@@ -106,6 +106,9 @@ map <D-h> :set invhk inrl<CR>
 " Deoplete config
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+
+" Add tab
+nmap <A-t> ^i<TAB><ESC>``
 
 " Neosnippet configuration
 imap <expr><TAB> neosnippet#expandable_or_jumpable()
