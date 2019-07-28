@@ -8,13 +8,14 @@ set modelines=1
 
 " Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol client for neovim
 Plug 'chriskempson/base16-vim' " For da themese
 Plug 'vim-airline/vim-airline' " For da shit
 Plug 'vim-airline/vim-airline-themes' " For da shit's themes
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " For da beloved sidebar
-Plug 'scrooloose/syntastic' " For da linters
+Plug 'w0rp/ale' " For da linters
 Plug 'majutsushi/tagbar', { 'on': 'Tagbar' } " For da navigation
-Plug 'Tpope/vim-commentary' " For da commentz
+Plug 'tpope/vim-commentary' " For da commentz
 Plug 'Valloric/MatchTagAlways' " Always match dem HTML tags
 Plug 'mxw/vim-jsx' " Syntax highlighting for JSX aka React
 Plug 'pangloss/vim-javascript' " Syntax highlighting for JS aka lyfe
@@ -24,7 +25,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocomplete
 Plug 'mattn/emmet-vim' " Emmet 4 vim
 Plug 'airblade/vim-gitgutter' " GitGutter ayy
 Plug 'raimondi/delimitmate' " Match dem qutes, parens etc.
-Plug 'jeetsukumaran/vim-buffergator' " A nice window for switching buffers
 Plug 'jistr/vim-nerdtree-tabs' " NERDTree + tabs
 Plug 'mhinz/vim-startify' " Upping my start window game abit
 Plug 'ryanoasis/vim-devicons' " NERDTree file iconz
@@ -32,20 +32,27 @@ Plug 'leafgarland/typescript-vim' " TypeScript syntax highlighting
 Plug 'marciomazza/vim-brogrammer-theme' " Brogrammer theme
 Plug 'dracula/vim' " Dracula theme
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy file search
+Plug 'junegunn/fzf.vim' " fzf companion Vim functions
 Plug 'jonohayon/todo-vim' " Todo comments manager
 Plug 'editorconfig/editorconfig-vim' " Editorconfig support
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' } " JavaScript support for deoplete
+" Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' } " JavaScript support for deoplete
 Plug 'tweekmonster/deoplete-clang2' " C Family support for deoplete
 Plug 'mitsuse/autocomplete-swift' " Swift support for deoplete
 Plug 'eagletmt/neco-ghc' " Haskell support for deoplete
 Plug 'othree/jspc.vim' " Better parameter completion for JavaScript
 Plug 'Shougo/neosnippet.vim' " Snippets support for deoplete
 Plug 'Shougo/neosnippet-snippets' " Snippets for neosnippet
-Plug 'cespare/vim-toml' " TOML syntax highlighting
-Plug 'arrufat/vala.vim' " Vala stuff
 Plug 'fatih/vim-go' " Go stuff
 Plug 'posva/vim-vue' " Vue.js
 Plug 'dart-lang/dart-vim-plugin' " Dart language support
+Plug 'flowtype/vim-flow'
+Plug 'sheerun/vim-polyglot'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'sudar/vim-arduino-syntax'
+Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do':  'make fsautocomplete' } " F# Language Support
+Plug 'rizzatti/dash.vim'
 call plug#end()
 
 " Editor shit
@@ -65,6 +72,7 @@ set ttimeoutlen=50
 set noswapfile
 set ruler
 set colorcolumn=160
+set hidden
 
 " Syntax highlighting and linters
 let g:syntastic_javascript_checkers = ['standard', 'eslint']
@@ -77,6 +85,7 @@ set smartcase
 set ignorecase
 set hlsearch
 set gdefault
+set inccommand=split
 
 " Todo window
 let g:todo_vertical = 1
@@ -93,7 +102,7 @@ map <F8> :source %<CR>:PlugInstall<CR>
 map <D-_> gcc
 " Tagbar shortcut
 map <D-g> :Tagbar<CR>
-" fzf
+" fzf in folder
 map <D-f> :FZF<CR>
 " Todo comments panel
 map <C-t> :TODOToggle<CR>
@@ -102,6 +111,10 @@ map <C-x> :BuffergatorToggle<CR>
 
 " Hebrew writing (mainly for LaTeX)
 map <D-h> :set invhk inrl<CR>
+
+" fzf in files; taken from https://mkaz.blog/code/unix-is-my-ide/
+map <C-f> :Find<space>
+command! -bang -nargs=* Find call fzf#vim#grep( 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " Deoplete config
 let g:deoplete#enable_at_startup = 1
@@ -120,7 +133,53 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable()
   \ : "\<TAB>"
 
 " TernJS config
-let g:tern#filetypes = ['jsx', 'javascript.jsx', 'vue']
+" let g:tern#filetypes = ['jsx', 'javascript.jsx', 'vue']
+
+" LSP
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_serverCommands = {
+  \ 'javascript': ['typescript-language-server', '--stdio'],
+  \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
+  \ 'typescript': ['typescript-language-server', '--stdio'],
+  \ 'html': ['html-languageserver', '--stdio'],
+  \ 'json': ['json-language-server', '--stdio'],
+  \ 'python': ['pyls']
+  \ }
+ let g:LanguageClient_diagnosticsDisplay = {
+      \    1: {
+      \         "name": "Error",
+      \         "texthl": "LChl",
+      \         "signText": "?",
+      \         "signTexthl": "LChl",
+      \     },
+      \     2: {
+      \         "name": "Warning",
+      \         "texthl": "LChl",
+      \         "signText": "?",
+      \         "signTexthl": "LChl",
+      \     },
+      \     3: {
+      \         "name": "Information",
+      \         "texthl": "LChl",
+      \         "signText": "?",
+      \         "signTexthl": "LChl",
+      \     },
+      \     4: {
+      \         "name": "Hint",
+      \         "texthl": "LChl",
+      \         "signText": "?",
+      \         "signTexthl": "LChl",
+      \     },
+      \ }
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gR :call LanguageClient#textDocument_rename()<CR>
+autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+
+" Flow
+let g:flow#autoclose = 1
 
 " Swift autocomplete config
 autocmd FileType swift imap <buffer> <C-x> <Plug>(autocomplete_swift_jump_to_placeholder)
@@ -137,7 +196,6 @@ inoremap <Right> <NOP>
 set termguicolors
 let base16colorspace = 256
 set background=dark
-" colorscheme brogrammer
 colorscheme dracula
 syntax on
 
@@ -164,3 +222,18 @@ au BufReadPost .eslintrc set syntax=json
 au BufReadPost .tern-project set syntax=json
 au BufReadPost .tern-config set syntax=json
 
+" Ale config - from Leeor
+let g:ale_linters = {
+   \   'haskell': ['stack-ghc-mod', 'hlint', 'hdevtools', 'hfmt'],
+   \   'javascript': ['flow', 'eslint'],
+   \}
+let g:ale_fixers = {}
+let g:ale_fixers.haskell = [{buffer -> {'command': 'hindent'}}]
+let g:ale_fixers.javascript = ['eslint']
+let g:ale_fix_on_save = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_sign_error='X'
+let g:ale_sign_warning='!'
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
