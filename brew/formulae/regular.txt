@@ -27,7 +27,6 @@ mongodb
 mysql
 neovim
 node
-phantomjs
 python
 python3
 redis
