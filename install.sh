@@ -23,7 +23,6 @@ dot_macos="true"
 dot_npm="true"
 dot_gem="true"
 dot_vscode="true"
-dot_sublime="true"
 dot_nvim="true"
 dot_latex="false"
 
@@ -33,7 +32,6 @@ edit_options () {
     dot_cask="false"
     dot_git="false"
     dot_zsh="false"
-    dot_sublime="false"
     dot_vscode="false"
   elif [[ $1 == "only" ]]; then
     only_mode="true"
@@ -114,9 +112,6 @@ if [[ $only_mode != "true" ]]; then
 
   source "./latex/main.sh"
   latex_routine "$dot_latex"
-
-  source "./sublime/main.sh"
-  sublime_routine "$dot_sublime"
 
   source "./nvim/main.sh"
   nvim_routine "$dot_nvim"
