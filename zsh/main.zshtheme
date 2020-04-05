@@ -5,9 +5,11 @@ unset RPS1
 
 function current_music () {
   local songData="$(osascript ~/dotfiles/zsh/itunes.scpt)"
-  [[ $songData != "" ]] \
-    && echo "%{$fg_bold[cyan]%}[♪ ${songData}]" \
-    || echo ""
+  if [[ $songData != "" ]]; then
+    echo "%{$fg_bold[cyan]%}[♪ ${songData}]"
+  else
+    echo ""
+  fi
 }
 
 function git_get_branch () {
@@ -28,12 +30,17 @@ function info_git () {
   fi
 }
 
+# TODO - Add the charging icon back
 function battery_info () {
-  local lastline="$(pmset -g batt | tail -n 1)"
-  local percent="${$(echo $lastline | awk '{print $3}' | grep '%')%?}"
-  local charging="${$(echo $lastline | awk '{print $4}' | grep ';')%?}"
-  local symbol="$([[ $charging =~ "^dis" ]] && echo "⇀" || echo "⇋")"
-  echo "%{$fg_bold[white]%}[${symbol} ${percent}%]"
+  local awk2="$(pmset -g batt | tail -n 1 | awk '{print $3}')"
+  local percent="${$(echo $awk2 | grep '%')%?}"
+  echo "%{$fg_bold[white]%}[⇀ ${percent}%]"
+}
+
+function is_ssh () {
+  if [[ -n $SSH_CONNECTION ]]; then
+    echo "[SSH]"
+  fi
 }
 
 function node_version () {
