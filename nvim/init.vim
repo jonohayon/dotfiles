@@ -8,7 +8,8 @@ set modelines=1
 
 " Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol client for neovim
+" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol client for neovim
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Langauge Server Protocol client for neovim, better than LC-NVIM
 Plug 'chriskempson/base16-vim' " For da themese
 Plug 'vim-airline/vim-airline' " For da shit
 Plug 'vim-airline/vim-airline-themes' " For da shit's themes
@@ -40,8 +41,6 @@ Plug 'tweekmonster/deoplete-clang2' " C Family support for deoplete
 Plug 'mitsuse/autocomplete-swift' " Swift support for deoplete
 Plug 'eagletmt/neco-ghc' " Haskell support for deoplete
 Plug 'othree/jspc.vim' " Better parameter completion for JavaScript
-Plug 'Shougo/neosnippet.vim' " Snippets support for deoplete
-Plug 'Shougo/neosnippet-snippets' " Snippets for neosnippet
 Plug 'fatih/vim-go' " Go stuff
 Plug 'posva/vim-vue' " Vue.js
 Plug 'dart-lang/dart-vim-plugin' " Dart language support
@@ -53,6 +52,7 @@ Plug 'JuliaEditorSupport/julia-vim'
 Plug 'sudar/vim-arduino-syntax'
 Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do':  'make fsautocomplete' } " F# Language Support
 Plug 'rizzatti/dash.vim'
+Plug 'rust-lang/rust.vim' " Rust language support
 call plug#end()
 
 " Editor shit
@@ -73,6 +73,11 @@ set noswapfile
 set ruler
 set colorcolumn=160
 set hidden
+
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
 
 " Syntax highlighting and linters
 let g:syntastic_javascript_checkers = ['standard', 'eslint']
@@ -123,60 +128,93 @@ let g:deoplete#enable_smart_case = 1
 " Add tab
 nmap <A-t> ^i<TAB><ESC>``
 
-" Neosnippet configuration
-imap <expr><TAB> neosnippet#expandable_or_jumpable()
-  \ ? "\<Plug>(neosnippet_expand_or_jump)"
-  \ : pumvisible() ? "\<C-n>" : "\<TAB>"
-
-smap <expr><TAB> neosnippet#expandable_or_jumpable()
-  \ ? "\<Plug>(neosnippet_expand_or_jump)"
-  \ : "\<TAB>"
-
-" TernJS config
-" let g:tern#filetypes = ['jsx', 'javascript.jsx', 'vue']
-
 " LSP
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_serverCommands = {
-  \ 'javascript': ['typescript-language-server', '--stdio'],
-  \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
-  \ 'typescript': ['typescript-language-server', '--stdio'],
-  \ 'html': ['html-languageserver', '--stdio'],
-  \ 'json': ['json-language-server', '--stdio'],
-  \ 'python': ['pyls']
-  \ }
- let g:LanguageClient_diagnosticsDisplay = {
-      \    1: {
-      \         "name": "Error",
-      \         "texthl": "LChl",
-      \         "signText": "?",
-      \         "signTexthl": "LChl",
-      \     },
-      \     2: {
-      \         "name": "Warning",
-      \         "texthl": "LChl",
-      \         "signText": "?",
-      \         "signTexthl": "LChl",
-      \     },
-      \     3: {
-      \         "name": "Information",
-      \         "texthl": "LChl",
-      \         "signText": "?",
-      \         "signTexthl": "LChl",
-      \     },
-      \     4: {
-      \         "name": "Hint",
-      \         "texthl": "LChl",
-      \         "signText": "?",
-      \         "signTexthl": "LChl",
-      \     },
-      \ }
+" let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_diagnosticsEnable = 0
+" let g:LanguageClient_serverCommands = {
+"   \ 'javascript': ['javascript-typescript-stdio'],
+"   \ 'javascript.jsx': ['javascript-typescript-stdio'],
+"   \ 'typescript': ['javascript-typescript-stdio'],
+"   \ 'typescript.tsx': ['javascript-typescript-stdio'],
+"   \ 'html': ['html-languageserver', '--stdio'],
+"   \ 'json': ['json-language-server', '--stdio'],
+"   \ 'python': ['pyls']
+"   \ }
+"  let g:LanguageClient_diagnosticsDisplay = {
+"       \    1: {
+"       \         "name": "Error",
+"       \         "texthl": "LChl",
+"       \         "signText": "?",
+"       \         "signTexthl": "LChl",
+"       \     },
+"       \     2: {
+"       \         "name": "Warning",
+"       \         "texthl": "LChl",
+"       \         "signText": "?",
+"       \         "signTexthl": "LChl",
+"       \     },
+"       \     3: {
+"       \         "name": "Information",
+"       \         "texthl": "LChl",
+"       \         "signText": "?",
+"       \         "signTexthl": "LChl",
+"       \     },
+"       \     4: {
+"       \         "name": "Hint",
+"       \         "texthl": "LChl",
+"       \         "signText": "?",
+"       \         "signTexthl": "LChl",
+"       \     },
+"       \ }
 
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> gR :call LanguageClient#textDocument_rename()<CR>
-autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> gR :call LanguageClient#textDocument_rename()<CR>
+" autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+
+" coc.nvim
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <A-space> coc#refresh()
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gR <Plug>(coc-rename)
+nmap <silent> gf <Plug>(coc-fix-current)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+command! -nargs=0 Format :call CocAction('format')
+
+set statusline^=%{coc#status()}
+
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Flow
 let g:flow#autoclose = 1
