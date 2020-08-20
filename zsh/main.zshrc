@@ -42,8 +42,12 @@ function _z_precmd() {
 antigen apply
 
 # Initialize nvm
-export NVM_DIR="/Users/jonathano/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# export NVM_DIR="/Users/jonathano/.nvm"
+# [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Initialize fnm
+eval "$(fnm env --multi)"
 
 # A simple calculator for the command line
 function calc () { echo "$(($@))" }
@@ -163,3 +167,5 @@ export PATH="/usr/local/opt/qt/bin:$PATH"
 # Add flutter to the path
 export PATH="$HOME/flutter/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
