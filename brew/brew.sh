@@ -18,10 +18,11 @@ install_brew_formulae () {
   brew tap ravenac95/sudolikeaboss &> /dev/null
 
   local formulae=$(cat "./brew/formulae/regular.txt")
+  local brewList=$(brew list)
   OIFS=IFS
   IFS=$'\n'
   for formula in ${formulae[@]}; do
-    brew list | grep $formula &> /dev/null
+    echo $brewList | grep $formula &> /dev/null
     [ $? -eq 1 ] \
       && install_brew_formula $formula \
       || ok "$formula is already installed!"

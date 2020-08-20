@@ -1,5 +1,4 @@
 zsh
-httpie
 jq
 youtube-dl
 mas
@@ -13,6 +12,7 @@ ghostscript
 git
 gphoto2
 heroku
+haskell-stack
 imagemagick
 kotlin
 ldid
@@ -43,3 +43,4 @@ leiningen
 sudolikeaboss
 cmake
 ctags
+Schniz/tap/fnm

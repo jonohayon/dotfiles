@@ -28,10 +28,11 @@ install_cask_formula () {
 
 install_cask_formulae () {
   local formulae=$(cat "./brew/formulae/cask.txt")
+  local caskList=$(brew cask list)
   OIFS=IFS
   IFS=$'\n'
   for formula in ${formulae[@]}; do
-    brew cask list | grep $formula &> /dev/null
+    caskList | grep $formula &> /dev/null
     [ $? -eq 1 ] \
       && install_cask_formula $formula \
       || ok "$formula is already installed!"
