@@ -1,7 +1,7 @@
 -- A script that echos the currently playing iTunes track
 
-if application "iTunes" is running then
-  tell application "iTunes"
+if application "Music" is running then
+  tell application "Music"
     if exists current track then
       set songName to the name of the current track
       set songArtist to the artist of the current track
