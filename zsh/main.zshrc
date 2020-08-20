@@ -15,8 +15,6 @@ setopt extended_glob
 
 source ~/.antigen/antigen.zsh # Load antigen
 
-antigen use oh-my-zsh # Add Oh My ZSH
-
 # Some recommended plugins
 antigen bundles <<EOBUNDLES
   git
