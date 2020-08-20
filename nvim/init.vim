@@ -14,7 +14,7 @@ Plug 'chriskempson/base16-vim' " For da themese
 Plug 'vim-airline/vim-airline' " For da shit
 Plug 'vim-airline/vim-airline-themes' " For da shit's themes
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " For da beloved sidebar
-Plug 'w0rp/ale' " For da linters
+" Plug 'w0rp/ale' " For da linters
 Plug 'majutsushi/tagbar', { 'on': 'Tagbar' } " For da navigation
 Plug 'tpope/vim-commentary' " For da commentz
 Plug 'Valloric/MatchTagAlways' " Always match dem HTML tags
@@ -22,7 +22,7 @@ Plug 'mxw/vim-jsx' " Syntax highlighting for JSX aka React
 Plug 'pangloss/vim-javascript' " Syntax highlighting for JS aka lyfe
 Plug 'toyamarinyon/vim-swift' " Syntax highlighting for Swift aka love
 Plug 'latex-box-team/latex-box' " The real deal for LaTeX in Vim
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocomplete
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocomplete
 Plug 'mattn/emmet-vim' " Emmet 4 vim
 Plug 'airblade/vim-gitgutter' " GitGutter ayy
 Plug 'raimondi/delimitmate' " Match dem qutes, parens etc.
@@ -37,9 +37,9 @@ Plug 'junegunn/fzf.vim' " fzf companion Vim functions
 Plug 'jonohayon/todo-vim' " Todo comments manager
 Plug 'editorconfig/editorconfig-vim' " Editorconfig support
 " Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' } " JavaScript support for deoplete
-Plug 'tweekmonster/deoplete-clang2' " C Family support for deoplete
-Plug 'mitsuse/autocomplete-swift' " Swift support for deoplete
-Plug 'eagletmt/neco-ghc' " Haskell support for deoplete
+" Plug 'tweekmonster/deoplete-clang2' " C Family support for deoplete
+" Plug 'mitsuse/autocomplete-swift' " Swift support for deoplete
+" Plug 'eagletmt/neco-ghc' " Haskell support for deoplete
 Plug 'othree/jspc.vim' " Better parameter completion for JavaScript
 Plug 'fatih/vim-go' " Go stuff
 Plug 'posva/vim-vue' " Vue.js
@@ -92,6 +92,14 @@ set hlsearch
 set gdefault
 set inccommand=split
 
+" Folding
+set foldmethod=syntax
+set foldcolumn=1
+set foldlevelstart=99
+
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+
 " Todo window
 let g:todo_vertical = 1
 let g:todo_right = 1
@@ -117,9 +125,12 @@ map <C-x> :BuffergatorToggle<CR>
 " Hebrew writing (mainly for LaTeX)
 map <D-h> :set invhk inrl<CR>
 
+autocmd BufRead,BufNewFile *.tsx set filetype=typescript.tsx
+autocmd BufRead,BufNewFile *.jsx set filetype=javascript.jsx
+
 " fzf in files; taken from https://mkaz.blog/code/unix-is-my-ide/
 map <C-f> :Find<space>
-command! -bang -nargs=* Find call fzf#vim#grep( 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Find call fzf#vim#grep( 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always" -g "!.git" '.shellescape(<q-args>), 1, <bang>0)
 
 " Deoplete config
 let g:deoplete#enable_at_startup = 1
@@ -197,6 +208,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gR <Plug>(coc-rename)
 nmap <silent> gf <Plug>(coc-fix-current)
+nmap <silent> gC <Plug>(coc-codeaction)
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
